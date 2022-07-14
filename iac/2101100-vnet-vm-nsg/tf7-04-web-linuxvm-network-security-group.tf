@@ -1,4 +1,4 @@
-/*
+
 # Resource-3 (Optional): Create Network Security Group and Associate to Linux VM Network Interface
 # Resource-1: Create Network Security Group (NSG)
 resource "azurerm_network_security_group" "web_vmnic_nsg" {
@@ -7,14 +7,7 @@ resource "azurerm_network_security_group" "web_vmnic_nsg" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
-# Resource-2: Associate NSG and Linux VM NIC
-resource "azurerm_network_interface_security_group_association" "web_vmnic_nsg_associate" {
-  depends_on = [ azurerm_network_security_rule.web_vmnic_nsg_rule_inbound]
-  network_interface_id      = azurerm_network_interface.web_linuxvm_nic.id
-  network_security_group_id = azurerm_network_security_group.web_vmnic_nsg.id
-}
-
-# Resource-3: Create NSG Rules
+# Resource-2: Create NSG Rules
 ## Locals Block for Security Rules
 locals {
   web_vmnic_inbound_ports_map = {
@@ -38,7 +31,12 @@ resource "azurerm_network_security_rule" "web_vmnic_nsg_rule_inbound" {
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.web_vmnic_nsg.name
 }
-*/
 
 
+# Resource-3: Associate NSG and Linux VM NIC
+resource "azurerm_network_interface_security_group_association" "web_vmnic_nsg_associate" {
+  depends_on = [ azurerm_network_security_rule.web_vmnic_nsg_rule_inbound]
+  network_interface_id      = azurerm_network_interface.web_linuxvm_nic.id
+  network_security_group_id = azurerm_network_security_group.web_vmnic_nsg.id
+}
 

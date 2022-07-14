@@ -1,6 +1,6 @@
 
 # cd into the directory.
-cd ./iac/2001100-vm-nsg
+cd ./iac/2001100-vnet-nsg
 
 cd ../..
 
