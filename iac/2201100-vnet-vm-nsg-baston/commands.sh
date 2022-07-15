@@ -1,6 +1,6 @@
 
 # cd into the directory.
-cd ./iac/2101100-vnet-vm-nsg
+cd ./iac/2201100-vnet-vm-nsg-baston
 
 cd ../..
 
@@ -38,10 +38,11 @@ terraform show main.tfplan
 terraform apply main.tfplan
 
 # Once successfully applied, Review the resources.
+# First Baston host linux VM.
 # Download the topology diagram. Go to the created vnet and then diagram.
 # Also look at subnets and corresponding security groups.
 
-# Connect to the VM. Ensure the vm is running.
+# Connect to the bastion VM(hr-dev-bastion-linuxvm). Ensure the vm is running.
 # Note the IP address.
 # Run the following with the ip address.
 # Run the following in bash prompt.
@@ -49,7 +50,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@40.114.14.64
+ssh -i ssh-keys/terraform-azure.pem azureuser@20.25.113.201
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -57,17 +58,57 @@ hostname
 # Switch to the root user.
 sudo su -
 
-cd /var/log
+cd /tmp
 
-# Now look for cloud-init-output.log file.
+# Look for the file terraform-azure.pem. It should have readonly permissions.
+# -r--------.  1 azureuser azureuser 3247 Jul 15 07:49 terraform-azure.pem
+# Its given only read permissions. Thats because of the following. tf8-03-move-ssh-key-to-bastion-host.tf
 
-# use the tail command to see the last 100 lines.
-tail -100f cloud-init-output.log
-# Review what all happened as the vm was booting.
+## Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo chmod 400 /tmp/terraform-azure.pem"
+#     ]
+#   }
 
 ls -lrta
 
-# Press Ctrl+C to comeout.
+# Now ssh into the other linux vm(not the bastion, we are already on the bastion).
+# First Note the IP address. 10.1.1.4. Go to the portal and find the vm. Then look at the IP address.
+# Run the following with the ip address.
+ssh -i terraform-azure.pem azureuser@10.1.1.4
+
+hostname
+
+sudo su -
+
+# Verify the html folder where we have the app1 folder and index.html
+cd /var/www/html
+
+ls -lrta
+
+cd ./app1
+
+# This should have 4 files.
+
+# -rw-r--r--. 1 root root   72 Jul 15 07:54 hostname.html
+# -rw-r--r--. 1 root root   56 Jul 15 07:54 status.html
+# -rw-r--r--. 1 root root  193 Jul 15 07:55 index.html
+# drwxr-xr-x. 2 root root   85 Jul 15 07:55 .
+# -rw-r--r--. 1 root root 2678 Jul 15 07:55 metadata.html
+
+ls -lrta
+
+cat index.html
+cat hostname.html
+cat status.html
+cat metadata.html
+
+curl -I http://localhost/app1/index.html
+curl -I http://localhost/index.html
+curl http://10.1.1.4
+
+# You can try the following as well, to veryfy the connection in detail
 
 # check if the web server is running.
 ps -ef | grep httpd
@@ -111,8 +152,17 @@ http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/status.html
 
 http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/hostname.html
 
-exit
 
+# This completes the connection from Baston host linux VM to Web VM verification
+
+# Now verify the Azure Bastion Service connection to Web VM
+
+# See the mageConnect-To-Web-Vm-Via-Bastion.jpg in the read me file
+# Once connected, you can vrify the connection from the bastion host to the web vm in the same way as above.
+
+exit
+exit
+exit
 exit
 
 terraform state list
