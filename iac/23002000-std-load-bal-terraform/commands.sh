@@ -1,6 +1,6 @@
 
 # cd into the directory.
-cd ./iac/23001200-std-load-bal-vm-sbl-terraform
+cd ./iac/23002000-std-load-bal-terraform
 
 cd ../..
 
@@ -50,7 +50,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@20.119.51.114
+ssh -i ssh-keys/terraform-azure.pem azureuser@20.231.59.51
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -126,33 +126,6 @@ Now browse the vm.
 
 # use ip address or dns name.
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/metadata.html
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/index.html
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/status.html
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/hostname.html
-
-cd /var/log/httpd/
-
-tail -100f access_log
-
-# Run any of the following commands and then see the logs.
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/metadata.html
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/index.html
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/status.html
-
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/hostname.html
-
-
 # This completes the connection from Baston host linux VM to Web VM verification
 
 # Now verify the Azure Bastion Service connection to Web VM
@@ -185,3 +158,18 @@ terraform plan -destroy -out main.destroy.tfplan
 terraform show main.destroy.tfplan
 
 terraform apply main.destroy.tfplan
+
+Remove-Item -Recurse -Force .terraform/modules
+
+Remove-Item -Recurse -Force .terraform
+
+Remove-Item terraform.tfstate
+
+Remove-Item terraform.tfstate.backup
+
+Remove-Item main.tfplan
+
+Remove-Item main.destroy.tfplan
+
+Remove-Item .terraform.lock.hcl
+

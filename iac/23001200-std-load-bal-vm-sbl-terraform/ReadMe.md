@@ -18,4 +18,7 @@
 
 ![Vnet topology to be created](./LbTopology.svg)
 
+- Nat Rules are not added at this point. They will be added subsequently.
+
+
 

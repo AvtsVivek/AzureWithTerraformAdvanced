@@ -1,5 +1,8 @@
 # Resource-1: Create Public IP Address
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip
+# There would not be any public ip address attached to the vm. 
+# We will only be having public up to the load balancer. 
+# So comment this out.
 
 /*
 

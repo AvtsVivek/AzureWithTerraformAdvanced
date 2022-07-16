@@ -13,29 +13,11 @@ network_interface_ids = [azurerm_network_interface.web_linuxvm_nic.id]
 
 ![The layout](./Images/Layout.jpg)
 
-- The following is the diagram downloaded from the Azure Portal.
+- The following is the diagram downloaded from the Azure Portal, Vnet
 
-![The Diagram](./Images/topology.svg)
+![Topology](./Images/topology.svg)
 
-- The bastion linux vm. 
+- Load Balancer Topology is as follows.
 
-![The bastion linux vm](./Images/bastion-linux-vm.jpg)
-
-- The web linux vm.Note that it has no public ip address. Only the private ip address.
-
-![The web linux vm](./Images/web-linux-vm.jpg)
-
-- Connect to Web VM via Bastion from the auzre portal. Go to the resource group on portal. Click on the web linux vm. Click on the Connect button. Then select Bastion tab. Then click Use Bastion button. 
-
-![Connect to Web VM via Bastion from the auzre portal.](./Images/Connect-To-Web-Vm-Via-Bastion.jpg)
-
-- Provide user name as azueruser and browse ssh key. Click connect. Take care of the pop up blocker.  
-![Provide User Name and ssh key file.](./Images/user-name-ssh-key-file.jpg)
-
-- Bastion console is not infront of you. 
-
-![Provide User Name and ssh key file.](./Images/BastionConsole.jpg)
-
-
-- You can connect to bastion vm as well in a similar manner.
+![Load Balancer Topology](./Images/LbTopology.svg)
 
