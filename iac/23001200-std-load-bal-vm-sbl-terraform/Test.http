@@ -1,0 +1,5 @@
+
+# Get the ip address of the load balancer
+# Send the request by clicking the link
+
+GET http://20.232.185.157/ HTTP/1.1
