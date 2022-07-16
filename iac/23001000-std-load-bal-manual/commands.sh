@@ -15,9 +15,9 @@ cd ../..
 # then you are not in the right directory.
 
 # Use either one of the following.
-ssh -i ./ssh-keys/slb-demo1-vm1.pem -p 1022 azureuser@20.231.114.227
+ssh -i ./ssh-keys/slb-demo1-ssk-keys.pem -p 1022 azureuser@20.124.60.147
 
-ssh -i ./ssh-keys/slb-demo1-vm1.pem -p 2022 azureuser@20.231.114.227
+ssh -i ./ssh-keys/slb-demo1-ssk-keys.pem -p 2022 azureuser@20.124.60.147
 
 
 # Once you logged in, you can run the following commands.

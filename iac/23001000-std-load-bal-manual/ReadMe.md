@@ -6,6 +6,10 @@
 
 - Create a Subnet with name slb-demo1-subnet.
 
+- The following is the topology of the Vnet topology to be created:
+
+![Vnet topology to be created](./Images/topology.svg)
+
 - Create 2 VMs with name slb-demo1-vm1 and slb-demo1-vm2.
 
 ![Create a VM](./Images/CreateVm1Basics.jpg)
@@ -68,6 +72,27 @@
 
 ![Add NAT Rules](./Images/LoadBalancerNatAdd3.jpg)
 
+slb-demo1-rg
+
+slb-demo1-vnet
+
+slb-demo1-vm1
+
+slb-demo1-vm2
+
+slb-demo1-lb
+
+slb-demo1-lb-fip
+
+slb-demo1-lb-fip-pip
+
+slb-demo1-lb-backend-pool
+
+slb-demo1-lb-health-probe
+
+slb-demo1-lb-lb-rule
+
+slb-demo1-lb-nat-rule1
 
 7. slb-demo1-slb-fip
 8. slb-demo1-slb-fip-pip
