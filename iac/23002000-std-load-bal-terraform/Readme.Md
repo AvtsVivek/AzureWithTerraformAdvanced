@@ -5,6 +5,8 @@
 
 - Azure Bastion is a fully managed service that provides more secure and seamless Remote Desktop Protocol (RDP) and Secure Shell Protocol (SSH) access to virtual machines (VMs) without any exposure through public IP addresses. Provision the service directly in your local or peered virtual network to get support for all the VMs within it.
 
+- In this tutorial, we will provision a bastion host. Azure Bastion Service is not provisioned. So this is commented out.
+
 - Reference: https://azure.microsoft.com/en-us/services/azure-bastion/#overview
 
  
