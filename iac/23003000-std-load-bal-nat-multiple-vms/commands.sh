@@ -143,7 +143,7 @@ exit
 # If you get Permission denied (publickey,gssapi-keyex,gssapi-with-mic) error,
 # then you are not in the right directory.
 
-ssh -i ./ssh-keys/terraform-azure.pem -p 1022 azureuser@20.228.204.103
+ssh -i ./ssh-keys/terraform-azure.pem -p 1022 azureuser@20.228.138.61
 
 sudo su -
 

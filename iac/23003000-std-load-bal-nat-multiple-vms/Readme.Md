@@ -28,3 +28,7 @@ network_interface_ids = [azurerm_network_interface.web_linuxvm_nic.id]
 
 ![Load Balancer Topology](./Images/LbTopology.svg)
 
+### Additional Note for reference
+1. Meta-Argument count - Terraform Function element()
+2. Meta-Argument for_each with maps - Terraform Function lookup()
+
