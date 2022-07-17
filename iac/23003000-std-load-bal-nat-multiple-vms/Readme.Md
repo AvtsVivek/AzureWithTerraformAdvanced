@@ -1,7 +1,8 @@
 # Bastion Service
 
 ## Bastion Host: Linux VM
-## Bastion Service: Azure Bastion Service
+## Mutiple VMs: Yes
+
 
 - Azure Bastion is a fully managed service that provides more secure and seamless Remote Desktop Protocol (RDP) and Secure Shell Protocol (SSH) access to virtual machines (VMs) without any exposure through public IP addresses. Provision the service directly in your local or peered virtual network to get support for all the VMs within it.
 
@@ -14,6 +15,8 @@
 - One VM can be associated with multiple VM Network Interfaces. So the following is a list.
 network_interface_ids = [azurerm_network_interface.web_linuxvm_nic.id]
 
+
+# The following needs to be changed.
 
 ![The layout](./Images/Layout.jpg)
 
