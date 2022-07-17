@@ -1,8 +1,10 @@
 
-# cd into the directory.
-cd ./iac/23001120-std-load-bal-two-vm-terraform
+# This is work in progress.
+# Currently not working.
 
 cd ../..
+# cd into the directory.
+cd ./iac/23001120-std-load-bal-two-vm-terraform
 
 terraform fmt
 
@@ -39,3 +41,18 @@ terraform show main.destroy.tfplan
 
 terraform apply main.destroy.tfplan
 
+## To remove unwanted files, run the following commands:
+
+Remove-Item -Recurse -Force .terraform/modules
+
+Remove-Item -Recurse -Force .terraform
+
+Remove-Item terraform.tfstate
+
+Remove-Item terraform.tfstate.backup
+
+Remove-Item main.tfplan
+
+Remove-Item main.destroy.tfplan
+
+Remove-Item .terraform.lock.hcl
