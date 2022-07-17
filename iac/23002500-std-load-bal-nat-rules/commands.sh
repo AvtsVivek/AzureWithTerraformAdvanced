@@ -138,6 +138,27 @@ exit
 exit
 exit
 
+
+# Get the ip address of the load balancer.
+# Run the following command from bash command and NOT from powershell.
+# If you get Permission denied (publickey,gssapi-keyex,gssapi-with-mic) error,
+# then you are not in the right directory.
+
+ssh -i ./ssh-keys/terraform-azure.pem -p 1022 azureuser@20.228.204.103
+
+sudo su -
+
+cd /var/www/html/
+
+ls -lrt
+
+cd app1
+
+ls -lrt
+
+exit
+exit
+
 terraform state list
 
 # To create diagram, run the following command.
