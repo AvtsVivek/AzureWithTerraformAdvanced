@@ -1,7 +1,7 @@
 
 cd ../..
 # cd into the directory.
-cd ./iac/23003000-std-load-bal-nat-multiple-vms
+cd ./iac/23004000-nat-multiple-vms-foreach
 
 cd ssh-keys
 
@@ -49,7 +49,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@20.231.59.51
+ssh -i ssh-keys/terraform-azure.pem azureuser@40.76.26.123
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -143,7 +143,9 @@ exit
 # If you get Permission denied (publickey,gssapi-keyex,gssapi-with-mic) error,
 # then you are not in the right directory.
 
-ssh -i ./ssh-keys/terraform-azure.pem -p 1022 azureuser@20.228.138.61
+ssh -i ./ssh-keys/terraform-azure.pem -p 1022 azureuser@40.76.26.123
+
+ssh -i ./ssh-keys/terraform-azure.pem -p 2022 azureuser@40.76.26.123
 
 sudo su -
 
