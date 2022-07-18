@@ -9,6 +9,8 @@ vnet_address_space = ["10.1.0.0/16"]
 web_subnet_name    = "websubnet"
 web_subnet_address = ["10.1.1.0/24"]
 
+web_linuxvm_instance_count = 2
+
 # app_subnet_name    = "appsubnet"
 # app_subnet_address = ["10.1.11.0/24"]
 

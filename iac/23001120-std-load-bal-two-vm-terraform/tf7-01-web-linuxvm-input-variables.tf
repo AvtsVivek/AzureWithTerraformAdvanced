@@ -1,30 +1,36 @@
 # Linux VM Input Variables Placeholder file.
 
-variable "vm-count" {
-  description = "Number of VMs to create"
-  type        = set(string)
-  default     = ["one", "two", "three"]
+variable "web_linuxvm_instance_count" {
+  description = "Web Linux VM Instance Count"
+  type        = number
+  default     = 1
 }
 
-locals {
-  vm_count = [
-    "one",
-    "two",
-    "three",
-  ]
+# variable "vm-count" {
+#   description = "Number of VMs to create"
+#   type        = set(string)
+#   default     = ["one", "two", "three"]
+# }
+
+# locals {
+#   vm_count = [
+#     "one",
+#     "two",
+#     "three",
+#   ]
 
 
-  # vm_count_port_maps = flatten([
-  #   for vm in local.vm_count : [
-  #     for port_map in local.web_vmnic_inbound_ports_map : {
-  #       port     = port_map.port
-  #       priority = port_map.priority
-  #       vm       = vm
-  #     }
-  #   ]
-  # ])
+# vm_count_port_maps = flatten([
+#   for vm in local.vm_count : [
+#     for port_map in local.web_vmnic_inbound_ports_map : {
+#       port     = port_map.port
+#       priority = port_map.priority
+#       vm       = vm
+#     }
+#   ]
+# ])
 
-}
+#}
 
 # output "print_the_local_schemas" {
 #   value = [for schema in local.vm_count : schema]

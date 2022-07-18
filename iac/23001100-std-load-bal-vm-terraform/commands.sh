@@ -1,6 +1,6 @@
 
 # cd into the directory.
-cd ./iac/23001100-std-load-bal-terraform
+cd ./iac/23001100-std-load-bal-vm-terraform
 
 cd ../..
 

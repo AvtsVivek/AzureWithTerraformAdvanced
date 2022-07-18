@@ -8,6 +8,6 @@
 
 - Standard load balancer is added in a subsequent exercise.
 
-- What is achieved is the following.
+- What is achieved is the following. Here we are creating two vms.
 
 ![Vnet topology to be created](./topology.svg)
