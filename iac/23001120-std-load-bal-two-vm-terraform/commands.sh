@@ -1,6 +1,6 @@
 
 # This is work in progress.
-# Currently not working.
+# Currently not working. Now we will make it working.
 
 cd ../..
 # cd into the directory.
