@@ -1,9 +1,9 @@
 # Resource-2: Create Network Interface
 
 resource "azurerm_network_interface" "web_linuxvm_nic" {
-  for_each            = var.vm-count
-  name                = "${local.resource_name_prefix}-web-linuxvm-nic-${each.value}"
-  #name                = "${local.resource_name_prefix}-web-linuxvm-nic"
+  # for_each = var.vm-count
+  # name     = "${local.resource_name_prefix}-web-linuxvm-nic-${each.value}"
+  name                = "${local.resource_name_prefix}-web-linuxvm-nic"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
