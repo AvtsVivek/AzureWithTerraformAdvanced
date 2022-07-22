@@ -28,6 +28,14 @@ network_interface_ids = [azurerm_network_interface.web_linuxvm_nic.id]
 
 ![Load Balancer Topology](./Images/LbTopology.svg)
 
+- The following is the vnet diagram with two Vms.
+
+![Topology](./Images/topologyTwoVms.svg)
+ 
+- The following is the diagram of load balancer with two Vms.
+
+![Load Balancer Topology](./Images/LbTopologyTwoVms.svg)
+
 ### Additional Note for reference
 1. Meta-Argument count - Terraform Function element()
 2. Meta-Argument for_each with maps - Terraform Function lookup()
