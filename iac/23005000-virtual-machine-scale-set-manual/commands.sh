@@ -1,7 +1,7 @@
 
 cd ../..
 # cd into the directory.
-cd ./iac/23004000-nat-multiple-vms-foreach
+cd ./iac/23005000-virtual-machine-scale-set-manual
 
 cd ssh-keys
 
@@ -49,7 +49,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@40.76.26.123
+ssh -i ssh-keys/terraform-azure.pem azureuser@13.68.201.106
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -72,8 +72,9 @@ cd /tmp
 
 ls -lrta
 
-# Now ssh into the other linux vm(not the bastion, we are already on the bastion).
-# First Note the IP address. 10.1.1.4. Go to the portal and find the vm. Then look at the IP address.
+# Now ssh into the linux vm on Vmss(not the bastion, we are already on the bastion).
+# First Note the IP address. 10.1.1.4. Go to the portal and find the vmss, then the first vm. 
+# Then look at the IP address.
 # Run the following with the ip address.
 ssh -i terraform-azure.pem azureuser@10.1.1.4
 
@@ -98,6 +99,9 @@ cd ./app1
 
 ls -lrta
 
+# Now go to the portal and find the vmss. Then look at the IP address.
+# Compare this with the IP address of the load balancer. If they are the same, then you are good.
+
 cat index.html
 cat hostname.html
 cat status.html
@@ -121,21 +125,11 @@ cd ./app1
 
 ls -lrta
 
-Now browse the vm. 
-
-# use ip address or dns name.
-
-# This completes the connection from Baston host linux VM to Web VM verification
-
-# Now verify the Azure Bastion Service connection to Web VM
-
-# See the mageConnect-To-Web-Vm-Via-Bastion.jpg in the read me file
-# Once connected, you can vrify the connection from the bastion host to the web vm in the same way as above.
-
 exit
 exit
-exit
-exit
+
+# Now do the same for the other linux vm on the vmss.
+
 
 
 # Get the ip address of the load balancer.

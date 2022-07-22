@@ -22,19 +22,17 @@ network_interface_ids = [azurerm_network_interface.web_linuxvm_nic.id]
 
 - The following is the diagram downloaded from the Azure Portal, Vnet
 
-![Topology](./Images/topology.svg)
+![Vnet Topology](./Images/VnetTopology.svg)
 
 - Load Balancer Topology is as follows.
 
 ![Load Balancer Topology](./Images/LbTopology.svg)
 
-- The following is the vnet diagram with two Vms.
+- The following is the vnet diagram with two vms in Vmss.
 
-![Topology](./Images/topologyTwoVms.svg)
- 
-- The following is the diagram of load balancer with two Vms.
+![Topology](./Images/VmssTopology.svg)
 
-![Load Balancer Topology](./Images/LbTopologyTwoVms.svg)
+
 
 ### Additional Note for reference
 1. Meta-Argument count - Terraform Function element()

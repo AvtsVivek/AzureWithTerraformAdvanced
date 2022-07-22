@@ -15,7 +15,7 @@ resource "azurerm_lb" "web_lb" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Standard"
-  # The following is of type list. So when referenceing this, we need to use [0]
+  # The following is of type list. So when referenceing this, we need to use [0]  
   frontend_ip_configuration {
     name                 = "web-lb-publicip-1"
     public_ip_address_id = azurerm_public_ip.web_lbpublicip.id
@@ -51,13 +51,12 @@ resource "azurerm_lb_rule" "web_lb_rule_app1" {
   # resource_group_name            = azurerm_resource_group.rg.name
 }
 
+/*
 # Resource-6: Associate Network Interface and Standard Load Balancer
-
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_backend_address_pool_association
 resource "azurerm_network_interface_backend_address_pool_association" "web_nic_lb_associate" {
-
-  for_each                = var.web_linuxvm_instance_count
-  network_interface_id    = azurerm_network_interface.web_linuxvm_nic[each.key].id
-  ip_configuration_name   = azurerm_network_interface.web_linuxvm_nic[each.key].ip_configuration[0].name
+  network_interface_id    = azurerm_network_interface.web_linuxvm_nic.id
+  ip_configuration_name   = azurerm_network_interface.web_linuxvm_nic.ip_configuration[0].name
   backend_address_pool_id = azurerm_lb_backend_address_pool.web_lb_backend_address_pool.id
 }
+*/
