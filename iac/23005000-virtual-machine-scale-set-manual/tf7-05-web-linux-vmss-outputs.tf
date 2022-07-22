@@ -1,5 +1,4 @@
 
-
 # VM Scale Set Outputs
 
 output "web_vmss_id" {
