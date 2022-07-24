@@ -58,6 +58,14 @@
 
 ![Other Sources](./Images/AvailableMemoryBytesRule.jpg)
 
+- Add Rule SYN Count 
+
+![Other Sources](./Images/LbSynCountRule1.jpg)
+
+- Add Rule SYN Count
+
+![Other Sources](./Images/LbSynCountRule2.jpg)
+
 - Add Rule
 
 ![Other Sources](./Images/Other-Sources-in.jpg)
