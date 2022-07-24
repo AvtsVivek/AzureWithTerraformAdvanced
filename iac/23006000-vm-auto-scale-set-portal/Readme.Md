@@ -80,14 +80,15 @@
 
 - Reccurance Weekdays
 
-![Reccurance Weekdays .jpg](./Images/ReccuranceWeekdays.jpg)
-
+![Reccurance Weekdays](./Images/ReccuranceWeekdays.jpg)
 
 - Similarly for Weekend
 
+![Reccurance Weekends](./Images/ReccuranceWeekends.jpg)
+
 - Now Fixed profle 
 
-![Reccurance Weekdays .jpg](./Images/FixedProbile.jpg)
+![Fixed profile](./Images/FixedProbile.jpg)
 
 
 
