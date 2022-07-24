@@ -78,6 +78,16 @@
 
 ![Out and in](./Images/Other-Sources-out2.jpg)
 
+- Reccurance Weekdays
+
+![Reccurance Weekdays .jpg](./Images/ReccuranceWeekdays.jpg)
+
+
+- Similarly for Weekend
+
+- Now Fixed profle 
+
+![Reccurance Weekdays .jpg](./Images/FixedProbile.jpg)
 
 
 
