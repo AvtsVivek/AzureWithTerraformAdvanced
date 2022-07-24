@@ -52,7 +52,7 @@
 
 - Out and in rules
 
-![Out and in](./Images/Scale-Out-in.jpg)
+![Out and in](./Images/Scale-Out-In.jpg)
 
 - Available Memory bytes
 
