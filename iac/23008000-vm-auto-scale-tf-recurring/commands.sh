@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/23008000-vm-auto-scale-tf-recurring-fixed
+cd ./iac/23008000-vm-auto-scale-tf-recurring
 
 cd ssh-keys
 
