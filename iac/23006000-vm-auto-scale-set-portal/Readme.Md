@@ -2,7 +2,7 @@
 
 ## ntro
 
-- In this tute, we change the scaling to Auto. We will build on the previous tutorial.
+- In this tute, we change the scaling to Auto. We will build on the previous tutorial. We will be adding auto scalling manually using Azure Portal. The configuration is exacty same as the previous tutorial. So first you need to run the configuration to create the vmss. Then to that one we will add the auto scaling.
 
 ## Autosaling default profile
 
@@ -91,9 +91,12 @@
 ![Fixed profile](./Images/FixedProbile.jpg)
 
 
+- Finally do take a look at the portal, and see the json.
 
-- The following is the diagram downloaded from the Azure Portal, Vnet
+![VMSS](./Images/ScalingJson.jpg)
 
+- You can also take a look at the portal, and RunHistory in scalling.
+![VMSS](./Images/RunHistoryVmss.jpg)
 
 ### Additional Note for reference
 1. Meta-Argument count - Terraform Function element()
