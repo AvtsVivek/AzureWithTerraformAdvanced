@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/23009000-vm-auto-scale-tf-fixed
+cd ./iac/24001000-internal-lb
 
 cd ssh-keys
 
@@ -49,7 +49,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@20.124.27.249
+ssh -i ssh-keys/terraform-azure.pem azureuser@40.114.45.99
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -72,35 +72,118 @@ cd /tmp
 
 ls -lrta
 
+# Now we want to connect to app vm ss instance. 
+# Go to the app vm ss, and go to instances. Ensure they are running.
+# Click on any of them, overview, then pick the private ip address.
 
+ssh -i ./terraform-azure.pem azureuser@10.1.11.4
 
-# Verify the html folder where we have the app1 folder and index.html
+hostname
+
+sudo su -
+
+cd /var/log
+
+ls -lrta
+
+tail -100f cloud-init-output.log
+
 cd /var/www/html
 
 ls -lrta
 
-# This should have 1 file.
 cat index.html
 
-# Apachi bench tool is installed. Verify it.
-which ab
+cd appvm
 
-# Run the Load Test using Apache Bench.
-# Get the ip address of the load balancer. Note this is different from the bastion host.
-# 20.119.70.164
-# Reference 
-# https://httpd.apache.org/docs/2.4/programs/ab.html
+ls -lrta
 
-ab --help
+cat hostname.html
 
-# -k              Use HTTP KeepAlive feature
-# -n requests     Number of requests to perform
-# -c concurrency  Number of multiple requests to make at a time
-# -t timelimit    Seconds to max. to spend on benchmarking
-#                 This implies -n 50000
+exit
+exit
 
-ab -k -t 1200 -n 9050000 -c 100 http://<Web-LB-Public-IP>/index.html
-ab -k -t 1200 -n 9050000 -c 100 http://20.119.70.164/index.html
+curl http://10.1.11.4 # Must be the public ip address of the app vmss instance.
+curl http://10.1.11.7
+
+# Now from inside of the bastion host, to the app vmss instance, via the load balancer.
+# First get the ip address of the internal load balancer. This is a static one and is hardcoded to 10.1.11.241
+
+curl http://10.1.11.241
+
+
+# Now from the bastion host, to the app vmss (not the web vmss)
+# Now we want to connect to web vm ss instance. 
+# Go to the web vm ss, and go to instances. Ensure they are running.
+# Click on any of them, overview, then pick the private ip address.
+
+ssh -i ./terraform-azure.pem azureuser@10.1.1.5
+
+hostname
+
+sudo su -
+
+cd /var/log
+
+ls -lrta
+
+tail -100f cloud-init-output.log
+
+cd /var/www/html
+
+ls -lrta
+
+cat index.html
+
+cd webvm
+
+ls -lrta
+
+cd /etc/httpd/conf.d
+
+ls -lrta
+
+cat app1.conf
+
+# From the web servier(Web Vmss) to the app server(App Vmss).
+# WE aer able to do this because of root proxy.
+# We just saw the file conf.d: cat app1.conf. Find the following in conf.d file.
+# ProxyPass /webvm !
+
+curl http://10.1.11.4 # Must be the public ip address of the app vmss instance.
+curl http://10.1.11.7
+
+# But if we try, this is not routed to app vmss instance.
+# This is handled by the webvm it self.
+# This is again because of the conf.d file.
+
+curl http://10.1.11.7/webvm/index.html
+
+exit
+exit
+
+curl http://10.1.11.7
+
+# Finally, we want to connect to the web vmss instance from the public ip address of the load balancer.
+# First go the web load balancer, and get the public ip address.
+# 52.234.143.205 (hr-dev-lbpublicip)
+# This gets the data fromo the app vm ss instance.
+curl http://52.234.143.205
+
+# But if you do the follwing, you get the response from web vm and not app vm.
+# This is again because of # ProxyPass /webvm ! in the conf.d file.
+curl http://52.234.143.205/webvm
+
+# Try the same with browser as well.
+http://52.234.143.205/webvm
+http://52.234.143.205/appvm
+http://52.234.143.205
+
+# Also try the following in the browser
+http://52.234.143.205/appvm/metadata.html
+http://52.234.143.205/webvm/metadata.html
+
+
 
 exit 
 exit 
@@ -108,18 +191,6 @@ exit
 
 terraform state list
 
-# To create diagram, run the following command.
-code . -r 
-# Ensure Azure Terraform extension is installed in VS Code
-# Press F1 and Run the command AzureTerraform: Visualize. Graph.png will be generated.
-
-# For the following command to work, you need to pass on the resource, or data source.
-# This resource or data source is got from terraform state list command
-terraform state list
-
-terraform state show azurerm_resource_group.rg
-
-terraform show terraform.tfstate
 
 terraform plan -destroy -out main.destroy.tfplan
 

@@ -1,4 +1,31 @@
 # Locals Block for custom data
+
+
+# The following lines are for Azure CLI installation.
+
+# sudo sh -c 'echo -e "[azure-cli] 
+# name=Azure CLI 
+# baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+# enabled=1
+# gpgcheck=1
+# gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+# sudo yum install -y azure-cli
+
+# Change directory
+# sudo cd /etc/httpd/conf.d
+# Copy file from Azure Storage
+# sudo az storage blob download -c ${azurerm_storage_container.httpd_files_container.name} -f /etc/httpd/conf.d/app1.conf -n app1.conf --account-name ${azurerm_storage_account.storage_account.name} --account-key ${azurerm_storage_account.storage_account.primary_access_key}
+# Once the conf file is downloaded, reload the httpd service.
+# sudo systemctl reload httpd
+
+
+## Additional References - Reverse Proxy Outbound open on RedHat VM Apache2
+# Reference Link
+# https://confluence.atlassian.com/bitbucketserverkb/permission-denied-in-apache-logs-when-used-as-a-reverse-proxy-790957647.html
+# Command
+# /usr/sbin/setsebool -P httpd_can_network_connect 1
+
+
 locals {
   webvm_custom_data = <<CUSTOM_DATA
 #!/bin/sh
@@ -9,20 +36,32 @@ sudo systemctl start httpd
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo chmod -R 777 /var/www/html 
-sudo echo "Welcome to stacksimplify - WebVM App1 - VM Hostname: $(hostname)" > /var/www/html/index.html
-sudo mkdir /var/www/html/app1
-sudo echo "Welcome to stacksimplify - WebVM App1 - VM Hostname: $(hostname)" > /var/www/html/app1/hostname.html
-sudo echo "Welcome to stacksimplify - WebVM App1 - App Status Page" > /var/www/html/app1/status.html
-sudo echo '<!DOCTYPE html> <html> <body style="background-color:rgb(250, 210, 210);"> <h1>Welcome to Stack Simplify - WebVM APP-1 </h1> <p>Terraform Demo</p> <p>Application Version: V1</p> </body></html>' | sudo tee /var/www/html/app1/index.html
-sudo curl -H "Metadata:true" --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2020-09-01" -o /var/www/html/app1/metadata.html
+sudo echo "Welcome to Step By Step Tutes - WebVM App1 - VM Hostname: $(hostname)" > /var/www/html/index.html
+sudo mkdir /var/www/html/webvm
+sudo echo "Welcome to Step By Step Tutes - WebVM App1 - VM Hostname: $(hostname)" > /var/www/html/webvm/hostname.html
+sudo echo "Welcome to Step By Step Tutes - WebVM App1 - App Status Page" > /var/www/html/webvm/status.html
+sudo echo '<!DOCTYPE html> <html> <body style="background-color:rgb(250, 210, 210);"> <h1>Welcome to Stack Simplify - WebVM APP-1 </h1> <p>Terraform Demo</p> <p>Application Version: V1</p> </body></html>' | sudo tee /var/www/html/webvm/index.html
+sudo curl -H "Metadata:true" --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2020-09-01" -o /var/www/html/webvm/metadata.html
+
+
+sudo sh -c 'echo -e "[azure-cli] 
+name=Azure CLI 
+baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+sudo yum install -y azure-cli
+sudo cd /etc/httpd/conf.d
+sudo az storage blob download -c ${azurerm_storage_container.httpd_files_container.name} -f /etc/httpd/conf.d/app1.conf -n app1.conf --account-name ${azurerm_storage_account.storage_account.name} --account-key ${azurerm_storage_account.storage_account.primary_access_key}
+sudo systemctl reload httpd
+/usr/sbin/setsebool -P httpd_can_network_connect 1 
 CUSTOM_DATA  
 }
-
 
 # Resource: Azure Linux Virtual Machine Scale Set - App1
 resource "azurerm_linux_virtual_machine_scale_set" "web_vmss" {
   name = "${local.resource_name_prefix}-web-vmss"
-  #computer_name_prefix = "vmss-app1" # if name argument is not valid one for VMs, we can use this for our VM Names
+  #computer_name_prefix = "vmss-app1" # if name argument is not valid one for VMs, we can use this for VM Names
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Standard_DS1_v2"
@@ -60,7 +99,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "web_vmss" {
     }
   }
 
-  #custom_data = filebase64("${path.module}/app-scripts/redhat-webvm-script.sh")    
+  #custom_data = filebase64("${path.module}/app-scripts/redhat-app1-script.sh")      
   custom_data = base64encode(local.webvm_custom_data)
 }
+
 
