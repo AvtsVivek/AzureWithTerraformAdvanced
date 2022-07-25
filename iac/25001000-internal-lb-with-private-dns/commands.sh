@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/24001000-internal-lb
+cd ./iac/25001000-internal-lb-with-private-dns
 
 cd ssh-keys
 
@@ -49,13 +49,30 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@40.114.45.99
+ssh -i ssh-keys/terraform-azure.pem azureuser@20.102.78.202
 
 # Now that you are in the VM, you can run the following commands.
 hostname
 
 # Switch to the root user.
 sudo su -
+
+# Now do ns lookup.
+# Get the dns zone name, and then a record name.
+# Ensure that this is resolved to the static IP address of the private app load balancer.
+# We have hard coded to 10.1.11.241
+nslookup applb.stepbystep.com
+
+# Now do the curl command.
+# You should get the following
+# Welcome to Step By Step Tutes - AppVM App1 - VM Hostname: hr-dev-app-vmss000003
+curl applb.stepbystep.com
+
+# Finally, we want to connect to the web vmss instance from the public ip address of the load balancer.
+# First go the web load balancer, and get the public ip address.
+# 20.115.8.8 (hr-dev-lbpublicip)
+# This gets the data fromo the app vm ss instance.
+curl http://20.115.8.8
 
 cd /tmp
 
@@ -190,7 +207,6 @@ exit
 
 
 terraform state list
-
 
 terraform plan -destroy -out main.destroy.tfplan
 
