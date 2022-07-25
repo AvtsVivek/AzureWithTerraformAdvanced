@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/23007000-vm-auto-scale-set-terraform
+cd ./iac/23007000-vm-auto-scale-set-terraform-default
 
 cd ssh-keys
 
