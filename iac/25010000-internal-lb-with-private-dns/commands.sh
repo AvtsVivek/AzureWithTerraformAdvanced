@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/25001000-internal-lb-with-private-dns
+cd ./iac/25010000-internal-lb-with-private-dns
 
 cd ssh-keys
 
