@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/25010000-internal-lb-with-private-dns
+cd ./iac/26001000-pvt-pub-dns
 
 cd ssh-keys
 
@@ -189,6 +189,42 @@ cat app1.conf
 
 curl http://10.1.11.4 # Must be the public ip address of the app vmss instance.
 curl http://10.1.11.7
+
+# But if we try, this is not routed to app vmss instance.
+# This is handled by the webvm it self.
+# This is again because of the conf.d file.
+
+curl http://10.1.11.7/webvm/index.html
+
+exit
+exit
+
+curl http://10.1.11.7
+
+# Finally, we want to connect to the web vmss instance from the public ip address of the load balancer.
+# First go the web load balancer, and get the public ip address.
+# 52.234.143.205 (hr-dev-lbpublicip)
+# This gets the data fromo the app vm ss instance.
+curl http://52.234.143.205
+
+# But if you do the follwing, you get the response from web vm and not app vm.
+# This is again because of # ProxyPass /webvm ! in the conf.d file.
+curl http://52.234.143.205/webvm
+
+# Try the same with browser as well.
+http://52.234.143.205/webvm
+http://52.234.143.205/appvm
+http://52.234.143.205
+
+# Also try the following in the browser
+http://52.234.143.205/appvm/metadata.html
+http://52.234.143.205/webvm/metadata.html
+
+
+
+exit 
+exit 
+
 
 terraform state list
 
