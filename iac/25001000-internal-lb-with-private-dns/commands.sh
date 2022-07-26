@@ -49,7 +49,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@20.102.78.202
+ssh -i ssh-keys/terraform-azure.pem azureuser@20.228.133.250 
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -72,8 +72,15 @@ curl applb.stepbystep.com
 # First go the web load balancer, and get the public ip address.
 # 20.115.8.8 (hr-dev-lbpublicip)
 # This gets the data fromo the app vm ss instance.
-curl http://20.115.8.8
+# Not the following
+# Welcome to Step By Step Tutes - WebVM App1 - VM Hostname: hr-dev-web-vmss000000
+# The following is what should. It should be App and not Web.
+# It takes some time. 5-10 minutes.
+# Welcome to Step By Step Tutes - AppVM App1 - VM Hostname: hr-dev-app-vmss000001
+curl http://20.228.133.185
+# Check the above from browser as well. Copy the ip address and past in browser
 
+# Now from within the bastion vm, cd into tmp
 cd /tmp
 
 # Look for the file terraform-azure.pem. It should have readonly permissions.
@@ -89,19 +96,32 @@ cd /tmp
 
 ls -lrta
 
-# Now we want to connect to app vm ss instance. 
-# Go to the app vm ss, and go to instances. Ensure they are running.
+# Now we want to connect to web vm ss instance. 
+# Go to the web vm ss, and go to instances. Ensure they are running.
 # Click on any of them, overview, then pick the private ip address.
 
-ssh -i ./terraform-azure.pem azureuser@10.1.11.4
+ssh -i ./terraform-azure.pem azureuser@10.1.1.4 
 
 hostname
 
 sudo su -
 
-cd /var/log
+cd /etc/httpd/conf.d
 
 ls -lrta
+
+cat app1.conf
+# Now verify the following.
+# The following is commented out.
+# ProxyPass / http://10.1.11.241/
+# ProxyPassReverse / http://10.1.11.241/
+
+# And the following should be enabled(uncommented).
+# ProxyPass / http://applb.stepbystep.com/
+# ProxyPassReverse / http://applb.stepbystep.com/ 
+
+# Finally check for ns lookup
+nslookup applb.stepbystep.com
 
 tail -100f cloud-init-output.log
 

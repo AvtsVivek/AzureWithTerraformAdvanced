@@ -168,7 +168,12 @@ curl http://10.1.11.7
 # First go the web load balancer, and get the public ip address.
 # 52.234.143.205 (hr-dev-lbpublicip)
 # This gets the data fromo the app vm ss instance.
-curl http://52.234.143.205
+# Not the following
+# Welcome to Step By Step Tutes - WebVM App1 - VM Hostname: hr-dev-web-vmss000004
+# The following is what should. It should be App and not Web.
+# It takes some time. 5-10 minutes.
+# Welcome to Step By Step Tutes - AppVM App1 - VM Hostname: hr-dev-app-vmss000001
+curl http://20.25.2.155/
 
 # But if you do the follwing, you get the response from web vm and not app vm.
 # This is again because of # ProxyPass /webvm ! in the conf.d file.
@@ -190,7 +195,6 @@ exit
 
 
 terraform state list
-
 
 terraform plan -destroy -out main.destroy.tfplan
 
