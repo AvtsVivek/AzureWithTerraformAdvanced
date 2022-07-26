@@ -1,12 +1,12 @@
 # Datasource: Get DNS Record
 data "azurerm_dns_zone" "dns_zone" {
   name                = "viveklearn.xyz"
-  resource_group_name = "dns-zones"
+  resource_group_name = "hr-dev-rg-pub-dns-zone"
 }
 
 # Resource-1: Add ROOT Record Set in DNS Zone
 resource "azurerm_dns_a_record" "dns_record" {
-  depends_on = [azurerm_lb.web_lb ]
+  depends_on          = [azurerm_lb.web_lb]
   name                = "@"
   zone_name           = data.azurerm_dns_zone.dns_zone.name
   resource_group_name = data.azurerm_dns_zone.dns_zone.resource_group_name
@@ -16,7 +16,7 @@ resource "azurerm_dns_a_record" "dns_record" {
 
 # Resource-2: Add www Record Set in DNS Zone
 resource "azurerm_dns_a_record" "dns_record_www" {
-  depends_on = [azurerm_lb.web_lb ]  
+  depends_on          = [azurerm_lb.web_lb]
   name                = "www"
   zone_name           = data.azurerm_dns_zone.dns_zone.name
   resource_group_name = data.azurerm_dns_zone.dns_zone.resource_group_name
@@ -26,7 +26,7 @@ resource "azurerm_dns_a_record" "dns_record_www" {
 
 # Resource-3: Add app1 Record Set in DNS Zone
 resource "azurerm_dns_a_record" "dns_record_app1" {
-  depends_on = [azurerm_lb.web_lb ]
+  depends_on          = [azurerm_lb.web_lb]
   name                = "app1"
   zone_name           = data.azurerm_dns_zone.dns_zone.name
   resource_group_name = data.azurerm_dns_zone.dns_zone.resource_group_name

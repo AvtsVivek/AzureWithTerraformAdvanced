@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/26001000-pvt-pub-dns
+cd ./iac/26010000-pvt-pub-dns
 
 cd ssh-keys
 
@@ -61,12 +61,14 @@ sudo su -
 # Get the dns zone name, and then a record name.
 # Ensure that this is resolved to the static IP address of the private app load balancer.
 # We have hard coded to 10.1.11.241
-nslookup applb.stepbystep.com
+nslookup viveklearn.xyz
+nslookup app1.viveklearn.xyz
+nslookup www.viveklearn.xyz
 
 # Now do the curl command.
 # You should get the following
 # Welcome to Step By Step Tutes - AppVM App1 - VM Hostname: hr-dev-app-vmss000003
-curl applb.stepbystep.com
+curl applb.viveklearn.xyz
 
 # Finally, we want to connect to the web vmss instance from the public ip address of the load balancer.
 # First go the web load balancer, and get the public ip address.

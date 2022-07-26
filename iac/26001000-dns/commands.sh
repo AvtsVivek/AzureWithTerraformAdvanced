@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/25001000-dns
+cd ./iac/26001000-dns
 
 terraform fmt
 

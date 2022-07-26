@@ -9,15 +9,15 @@ output "dns_zone_name" {
 # FQDN 
 output "fqdn_public_dns_1" {
   description = "FQDN Public DNS 1"
-  value = azurerm_dns_a_record.dns_record.fqdn
+  value       = azurerm_dns_a_record.dns_record.fqdn
 }
 
 output "fqdn_public_dns_2" {
   description = "FQDN Public DNS 2"
-  value = azurerm_dns_a_record.dns_record_www.fqdn
+  value       = azurerm_dns_a_record.dns_record_www.fqdn
 }
 
 output "fqdn_public_dns_3" {
   description = "FQDN Public DNS 3"
-  value = azurerm_dns_a_record.dns_record_app1.fqdn
+  value       = azurerm_dns_a_record.dns_record_app1.fqdn
 }

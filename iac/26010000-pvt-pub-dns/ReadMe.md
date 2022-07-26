@@ -1,19 +1,6 @@
 # Dns 
 
-- This builds on the previous example and adds a private DNS zone.
+- Now we are adding a public DNS zone.
 
-- Note the app1.conf file.
+- A public DNS zone must be created before we can add to this tutorial.
 
-- The followiing must be disabled
-
-```t
-ProxyPass / http://10.1.11.241/
-ProxyPassReverse / http://10.1.11.241/
-```
-
-- And the following must be enabled.
-
-```t
-ProxyPass / http://applb.terraformguru.com/
-ProxyPassReverse / http://applb.terraformguru.com/
-```
