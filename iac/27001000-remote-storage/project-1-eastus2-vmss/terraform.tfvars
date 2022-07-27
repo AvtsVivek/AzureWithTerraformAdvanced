@@ -1,7 +1,7 @@
 business_divsion        = "hr"
 environment             = "dev"
 resource_group_name     = "rg-vivrag"
-resource_group_location = "eastus"
+resource_group_location = "eastus2"
 vnet_name               = "vnet"
 vnet_address_space      = ["10.1.0.0/16"]
 
@@ -17,8 +17,8 @@ db_subnet_address = ["10.1.21.0/24"]
 bastion_subnet_name    = "bastionsubnet"
 bastion_subnet_address = ["10.1.100.0/24"]
 
-bastion_service_subnet_name      = "AzureBastionSubnet"
-bastion_service_address_prefixes = ["10.1.101.0/27"]
+# bastion_service_subnet_name      = "AzureBastionSubnet"
+# bastion_service_address_prefixes = ["10.1.101.0/27"]
 
 # web_linuxvm_instance_count = 5
 # web_linuxvm_instance_count = {
