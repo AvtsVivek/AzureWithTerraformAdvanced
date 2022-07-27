@@ -1,0 +1,11 @@
+## Introducing Azure Traffic Manager
+
+- This example uses remote backend as againest local backend.
+
+- Pre-requisite for this example is a remote storage.
+
+- Follow [this example to create a remote storage](https://github.com/AvtsVivek/AzureWithTerraform/tree/main/iac/1800100-provision-remote-storage)
+
+- This builds on from [the example 27001000-remote-storage](https://github.com/AvtsVivek/AzureWithTerraformAdvanced/tree/main/iac/27001000-remote-storage)
+
+

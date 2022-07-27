@@ -27,7 +27,8 @@ terraform {
     storage_account_name = "tfstatetrial"
     container_name       = "tfstatefiles"
     # key                  = "terraform.tfstate"
-    key = "project-1-eastus2-terraform.tfstate"
+    # key                  = "project-1-eastus2-terraform.tfstate"
+    key = "project-2-westus2-terraform.tfstate"
   }
 }
 
