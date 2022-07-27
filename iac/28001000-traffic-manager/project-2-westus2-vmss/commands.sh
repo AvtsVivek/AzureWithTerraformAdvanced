@@ -36,13 +36,6 @@ terraform show main.tfplan
 
 terraform apply main.tfplan
 
-# Add tags and then run the following.
-
-terraform plan -out main.tfplan
-
-terraform apply main.tfplan
-
-
 terraform state list
 
 # To create diagram, run the following command.

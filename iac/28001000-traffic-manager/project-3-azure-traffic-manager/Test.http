@@ -1,0 +1,6 @@
+
+
+# There seems to be a bug. The traffic manager is directing to only one region, either eastus2 or westus2.
+# Not sure whats the problem. Or I may be totally wrong.
+
+GET http://mytfdemo-wufhfk.trafficmanager.net/
