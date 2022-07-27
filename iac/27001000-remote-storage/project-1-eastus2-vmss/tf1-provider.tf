@@ -20,7 +20,7 @@ terraform {
       source  = "hashicorp/null"
       version = " >= 3.1.1"
     }
-  }  
+  }
   # Terraform State Storage to Azure Storage Container
   backend "azurerm" {
     resource_group_name  = "storage-rg"

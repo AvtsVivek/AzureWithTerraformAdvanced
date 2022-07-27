@@ -40,3 +40,7 @@ output "web_lb_public_ip_address_id" {
 }
 ```
 
+- If we want to make this simple, we can use the default auto scaling profile in vmss. So accordingly we can comment out tf7-07, tf7-08 and enable just tf7-06.
+
+
+

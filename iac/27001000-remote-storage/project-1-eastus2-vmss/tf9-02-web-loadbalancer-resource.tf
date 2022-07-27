@@ -8,7 +8,7 @@ resource "azurerm_public_ip" "web_lbpublicip" {
   sku                 = "Standard"
   tags                = local.common_tags
   # "domain_name_label" required for Azure Traffic Manager
-  domain_name_label = azurerm_resource_group.rg.name  
+  domain_name_label = azurerm_resource_group.rg.name
 }
 
 # Resource-2: Create Azure Standard Load Balancer

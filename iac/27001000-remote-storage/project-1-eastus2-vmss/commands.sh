@@ -36,74 +36,11 @@ terraform show main.tfplan
 
 terraform apply main.tfplan
 
-# Once successfully applied, Review the resources.
-# First Baston host linux VM.
-# Download the topology diagram. Go to the created vnet and then diagram.
-# Also look at subnets and corresponding security groups.
+# Add tags and then run the following.
 
-# Connect to the bastion VM(hr-dev-bastion-linuxvm). Ensure the vm is running.
-# Note the IP address of the bastion vm.
-# Run the following with the ip address.
-# Run the following in bash prompt, not in the powershell.
-# If you get the following permission denined, 
-# azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
-# then you are not in the correct directory.
+terraform plan -out main.tfplan
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@20.124.27.249
-
-# Now that you are in the VM, you can run the following commands.
-hostname
-
-# Switch to the root user.
-sudo su -
-
-cd /tmp
-
-# Look for the file terraform-azure.pem. It should have readonly permissions.
-# -r--------.  1 azureuser azureuser 3247 Jul 15 07:49 terraform-azure.pem
-# Its given only read permissions. Thats because of the following. tf8-03-move-ssh-key-to-bastion-host.tf
-
-## Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
-#   provisioner "remote-exec" {
-#     inline = [
-#       "sudo chmod 400 /tmp/terraform-azure.pem"
-#     ]
-#   }
-
-ls -lrta
-
-
-
-# Verify the html folder where we have the app1 folder and index.html
-cd /var/www/html
-
-ls -lrta
-
-# This should have 1 file.
-cat index.html
-
-# Apachi bench tool is installed. Verify it.
-which ab
-
-# Run the Load Test using Apache Bench.
-# Get the ip address of the load balancer. Note this is different from the bastion host.
-# 20.119.70.164
-# Reference 
-# https://httpd.apache.org/docs/2.4/programs/ab.html
-
-ab --help
-
-# -k              Use HTTP KeepAlive feature
-# -n requests     Number of requests to perform
-# -c concurrency  Number of multiple requests to make at a time
-# -t timelimit    Seconds to max. to spend on benchmarking
-#                 This implies -n 50000
-
-ab -k -t 1200 -n 9050000 -c 100 http://<Web-LB-Public-IP>/index.html
-ab -k -t 1200 -n 9050000 -c 100 http://20.119.70.164/index.html
-
-exit 
-exit 
+terraform apply main.tfplan
 
 
 terraform state list
