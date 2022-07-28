@@ -1,6 +1,6 @@
 # Locals Block for custom data
 locals {
-  webvm_custom_data = <<CUSTOM_DATA
+app1_webvm_custom_data = <<CUSTOM_DATA
 #!/bin/sh
 #sudo yum update -y
 sudo yum install -y httpd
@@ -20,9 +20,9 @@ CUSTOM_DATA
 
 
 # Resource: Azure Linux Virtual Machine Scale Set - App1
-resource "azurerm_linux_virtual_machine_scale_set" "web_vmss" {
-  name = "${local.resource_name_prefix}-web-vmss"
-  #computer_name_prefix = "vmss-app1" # if name argument is not valid one for VMs, we can use this for our VM Names
+resource "azurerm_linux_virtual_machine_scale_set" "app1_web_vmss" {
+  name                = "${local.resource_name_prefix}-app1-web-vmss"
+  #computer_name_prefix = "vmss-app1" # if name argument is not valid one for VMs, we can use this for VM Names
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Standard_DS1_v2"
@@ -47,22 +47,21 @@ resource "azurerm_linux_virtual_machine_scale_set" "web_vmss" {
   }
 
   upgrade_mode = "Automatic"
-
+  
   network_interface {
-    name                      = "web-vmss-nic"
-    primary                   = "true"
-    network_security_group_id = azurerm_network_security_group.web_vmss_nsg.id
+    name                      = "app1-web-vmss-nic"
+    primary                   = true
+    network_security_group_id = azurerm_network_security_group.app1_web_vmss_nsg.id
     ip_configuration {
       name      = "internal"
       primary   = true
-      subnet_id = azurerm_subnet.websubnet.id
-      # load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.web_lb_backend_address_pool.id]
+      subnet_id = azurerm_subnet.websubnet.id  
       # application_gateway_backend_address_pool_ids = [azurerm_application_gateway.web_ag.backend_address_pool[0].id]
       application_gateway_backend_address_pool_ids = [tolist(azurerm_application_gateway.web_ag.backend_address_pool).0.id]
     }
   }
-
-  #custom_data = filebase64("${path.module}/app-scripts/redhat-webvm-script.sh")    
-  custom_data = base64encode(local.webvm_custom_data)
+  #custom_data = filebase64("${path.module}/app-scripts/redhat-app1-script.sh")      
+  custom_data = base64encode(local.app1_webvm_custom_data)  
 }
+  
 
