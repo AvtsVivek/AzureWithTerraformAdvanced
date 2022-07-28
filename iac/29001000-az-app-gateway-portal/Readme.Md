@@ -63,6 +63,26 @@ Ag Topology
  - Get the public IP address of the App Gateway.
 
 http://23.96.9.202/app1/index.html
+
+
 http://23.96.9.202/app1/hostname.html
+
+
 http://23.96.9.202/app1/status.html
+
+
 http://23.96.9.202/app1/meatadata.html
+
+
+## Deleting the App Gateway
+
+- Delete the public IP address of the App Gateway.
+
+- Disassociate the backend pools from the App Gateway. Ensure the targets are 0
+
+![Delete Backend pool](./Images/DeleteBackendPool.jpg)
+
+Ensure targests are zero
+
+![Ensure targests are 0](./Images/DeleteBackendPool2.jpg)
+
