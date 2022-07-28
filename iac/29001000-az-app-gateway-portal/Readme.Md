@@ -1,107 +1,68 @@
-# Auto Scaling of Azure Virtual Machines Scale Set
+## Azure Gateway
 
-## ntro
+ - This example builds from [23009000-vm-auto-scale-tf-fixed](https://github.com/AvtsVivek/AzureWithTerraformAdvanced/tree/main/iac/23009000-vm-auto-scale-tf-fixed)
 
-- In this tute, we change the scaling to Auto using terraform config. We will build on the previous tutorial. We will add azurerm_monitor_autoscale_setting for default auto profile. Recurring and fixed profiles are added in the next tutorial.
+- Adds an additional subnet(for azure gateway) to the existing VNet.
 
-## Autosaling default profile
+![Topology](./Images/topology.svg)
 
-- Defaults to round the clock schedule
+# Now creating Application Gateway from portal.
 
-- Mandatory Profile
+- Azure App GateWay
+![Azure App Gateway](./Images/AzureAppGateWay1.jpg)
 
-- Will not execute if Recurrence or Fixed Profile exists
-
-## Autosaling Recurrence profile
-
-- Recur on those days with start time specified
-
-- Week Day  and Weekend profiles
-
-- Business Hour and Non-Business Hour profile
-
-## Autosaling Fixed profile
-
-- Executes on that specific day
-
-- Fixed profile takes priority 1 for execution on that day if exists
-
-## Priority
-
-- Priority Execution Order for Autoscaling Profiles is as follows
-
-    - Autoscaling Fixed Profile
-    - Autoscaling Recurrence Profile
-    - Autoscaling Default Profile
-
-- The layout
-
-![The layout](./Images/Layout-Auto.jpg)
-
-- The following is the Manual scale config
-
-![Manual Scale config](./Images/Portail-Ui-Manual-Scale.jpg)
-
-- Changing that to Auto scale config
-
-![Auto Scale config](./Images/Portail-Ui-Auto-Scale-config.jpg)
-
-- Add Rule
-
-![Add Rule](./Images/Scale-in-rule.jpg)
-
-- Out and in rules
-
-![Out and in](./Images/Scale-Out-In.jpg)
-
-- Available Memory bytes
-
-![Other Sources](./Images/AvailableMemoryBytesRule.jpg)
-
-- Add Rule SYN Count 
-
-![Other Sources](./Images/LbSynCountRule1.jpg)
-
-- Add Rule SYN Count
-
-![Other Sources](./Images/LbSynCountRule2.jpg)
-
-- Add Rule
-
-![Other Sources](./Images/Other-Sources-in.jpg)
-
-- Out and in rules
-
-![Out and in](./Images/Other-Sources-out1.jpg)
-
-- Out and in rules
-
-![Out and in](./Images/Other-Sources-out2.jpg)
-
-- Reccurance Weekdays
-
-![Reccurance Weekdays](./Images/ReccuranceWeekdays.jpg)
-
-- Similarly for Weekend
-
-![Reccurance Weekends](./Images/ReccuranceWeekends.jpg)
-
-- Now Fixed profle 
-
-![Fixed profile](./Images/FixedProbile.jpg)
-
-- Ensure loadbalancer is Updating
-![Load balancer Backends](./Images/UpdatingInLbBackendPool.jpg)
-
-- Finally do take a look at the portal, and see the json.
-
-![VMSS](./Images/ScalingJson.jpg)
-
-- You can also take a look at the portal, and RunHistory in scalling.
-![VMSS](./Images/RunHistoryVmss.jpg)
+- Azure App GateWay Components
+![Azure App Gateway Components](./Images/AzureAppGateWay2.jpg)
 
 
-### Additional Note for reference
-1. Meta-Argument count - Terraform Function element()
-2. Meta-Argument for_each with maps - Terraform Function lookup()
+![Create App Gateway](./Images/CreateApplicationGateWay.jpg)
 
+2
+![Create App Gateway](./Images/CreateApplicationGateWay2.jpg)
+
+3
+![Create App Gateway](./Images/CreateApplicationGateWay3.jpg)
+
+4
+![Create App Gateway](./Images/CreateApplicationGateWay4.jpg)
+
+5
+![Create App Gateway](./Images/CreateApplicationGateWay5.jpg)
+
+6
+![Create App Gateway](./Images/CreateApplicationGateWay6.jpg)
+
+7
+![Create App Gateway](./Images/CreateApplicationGateWay7.jpg)
+
+8
+![Create App Gateway](./Images/CreateApplicationGateWay8.jpg)
+
+9
+![Create App Gateway](./Images/CreateApplicationGateWay9.jpg)
+
+10
+![Create App Gateway](./Images/CreateApplicationGateWay10.jpg)
+
+Http Probe
+
+![Http Probe](./Images/Http-probe.jpg)
+
+Http Probe test
+
+![Http Probe test](./Images/Http-probe2.jpg)
+
+Monitoring
+
+![Monitorng](./Images/MonitorngBackendHealth.jpg)
+
+Ag Topology
+
+![Ag Topology](./Images/AgTopology.svg)
+
+ - Get the public IP address of the App Gateway.
+
+http://23.96.9.202/app1/index.html
+http://23.96.9.202/app1/hostname.html
+http://23.96.9.202/app1/status.html
+http://23.96.9.202/app1/meatadata.html
