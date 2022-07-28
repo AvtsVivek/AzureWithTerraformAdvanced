@@ -76,8 +76,6 @@ http://23.96.9.202/app1/meatadata.html
 
 ## Deleting the App Gateway
 
-- Delete the public IP address of the App Gateway.
-
 - Disassociate the backend pools from the App Gateway. Ensure the targets are 0
 
 ![Delete Backend pool](./Images/DeleteBackendPool.jpg)
@@ -86,3 +84,8 @@ Ensure targests are zero
 
 ![Ensure targests are 0](./Images/DeleteBackendPool2.jpg)
 
+- Delete the app gateway.
+
+- It will take a while.
+
+- Delete the public IP address of the App Gateway.
