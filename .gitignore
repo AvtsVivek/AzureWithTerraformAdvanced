@@ -66,10 +66,14 @@ override.tf.json
 
 # Cert files
 
-*.crt
+**/*.crt
 *.cert
 *.key
 *.pfx
+
+ssl-self-signed/
+
+httpd.crt
 
 # Include override files you do wish to add to version control using negated pattern
 #
