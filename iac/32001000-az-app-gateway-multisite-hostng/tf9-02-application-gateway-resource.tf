@@ -13,23 +13,21 @@ locals {
   # Generic 
   frontend_port_name             = "${azurerm_virtual_network.vnet.name}-feport"
   frontend_ip_configuration_name = "${azurerm_virtual_network.vnet.name}-feip"
-  listener_name                  = "${azurerm_virtual_network.vnet.name}-httplstn"
-  request_routing_rule1_name     = "${azurerm_virtual_network.vnet.name}-reqroutrul-1"
-  url_path_map                   = "${azurerm_virtual_network.vnet.name}-upm-app1-app2"
+  #url_path_map                   =  "${azurerm_virtual_network.vnet.name}-upm-app1-app2"  
 
   # App1
   backend_address_pool_name_app1 = "${azurerm_virtual_network.vnet.name}-beap-app1"
   http_setting_name_app1         = "${azurerm_virtual_network.vnet.name}-be-htst-app1"
   probe_name_app1                = "${azurerm_virtual_network.vnet.name}-be-probe-app1"
+  listener_name_app1             = "${azurerm_virtual_network.vnet.name}-httplstn-app1"
+  request_routing_rule_name_app1 = "${azurerm_virtual_network.vnet.name}-rqrt-app1"
 
   # App2
   backend_address_pool_name_app2 = "${azurerm_virtual_network.vnet.name}-beap-app2"
   http_setting_name_app2         = "${azurerm_virtual_network.vnet.name}-be-htst-app2"
   probe_name_app2                = "${azurerm_virtual_network.vnet.name}-be-probe-app2"
-
-  # Default Redirect on Root Context (/)
-  redirect_configuration_name = "${azurerm_virtual_network.vnet.name}-rdrcfg"
-
+  listener_name_app2             = "${azurerm_virtual_network.vnet.name}-httplstn-app2"
+  request_routing_rule_name_app2 = "${azurerm_virtual_network.vnet.name}-rqrt-app2"
 }
 
 
@@ -69,13 +67,25 @@ resource "azurerm_application_gateway" "web_ag" {
     public_ip_address_id = azurerm_public_ip.web_ag_publicip.id
   }
 
-  # Listerner: HTTP Port 80
+  # Listerner: HTTP Port 80 with app1.terraformguru.com 
   http_listener {
-    name                           = local.listener_name
+    name                           = local.listener_name_app1
     frontend_ip_configuration_name = local.frontend_ip_configuration_name
     frontend_port_name             = local.frontend_port_name
     protocol                       = "Http"
+    host_names                     = ["app1.terraformguru.com"]
   }
+
+
+  # Listerner: HTTP Port 80 with app2.terraformguru.com 
+  http_listener {
+    name                           = local.listener_name_app2
+    frontend_ip_configuration_name = local.frontend_ip_configuration_name
+    frontend_port_name             = local.frontend_port_name
+    protocol                       = "Http"
+    host_names                     = ["app2.terraformguru.com"]
+  }
+
 
   # App1 Backend Configs
   backend_address_pool {
@@ -84,11 +94,10 @@ resource "azurerm_application_gateway" "web_ag" {
   backend_http_settings {
     name                  = local.http_setting_name_app1
     cookie_based_affinity = "Disabled"
-    #path                  = "/app1/"
-    port            = 80
-    protocol        = "Http"
-    request_timeout = 60
-    probe_name      = local.probe_name_app1
+    port                  = 80
+    protocol              = "Http"
+    request_timeout       = 60
+    probe_name            = local.probe_name_app1
   }
   probe {
     name                = local.probe_name_app1
@@ -133,39 +142,24 @@ resource "azurerm_application_gateway" "web_ag" {
     }
   }
 
-  # Path based Routing Rule
+
+  # Routing Rule - app1.terraformguru.com
   request_routing_rule {
-    name = local.request_routing_rule1_name
-    priority                   = 1 # Need to check
-    rule_type          = "PathBasedRouting"
-    http_listener_name = local.listener_name
-    # backend_address_pool_name  = local.backend_address_pool_name_app1 # Why is this removed? Need to find out.
-    url_path_map_name = local.url_path_map
+    name                       = local.request_routing_rule_name_app1
+    priority                   = 1
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name_app1
+    backend_address_pool_name  = local.backend_address_pool_name_app1
+    backend_http_settings_name = local.http_setting_name_app1
   }
 
-  # URL Path Map - Define Path based Routing    
-  url_path_map {
-    name                                = local.url_path_map
-    default_redirect_configuration_name = local.redirect_configuration_name
-    path_rule {
-      name                       = "app1-rule"
-      paths                      = ["/app1/*"]
-      backend_address_pool_name  = local.backend_address_pool_name_app1
-      backend_http_settings_name = local.http_setting_name_app1
-    }
-    path_rule {
-      name                       = "app2-rule"
-      paths                      = ["/app2/*"]
-      backend_address_pool_name  = local.backend_address_pool_name_app2
-      backend_http_settings_name = local.http_setting_name_app2
-    }
+  # Routing Rule - app2.terraformguru.com
+  request_routing_rule {
+    name                       = local.request_routing_rule_name_app2
+    priority                   = 2
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name_app2
+    backend_address_pool_name  = local.backend_address_pool_name_app2
+    backend_http_settings_name = local.http_setting_name_app2
   }
-
-  # Default Root Context (/ - Redirection Config)
-  redirect_configuration {
-    name          = local.redirect_configuration_name
-    redirect_type = "Permanent"
-    target_url    = "https://stacksimplify.com/azure-aks/azure-kubernetes-service-introduction/"
-  }
-
 }
