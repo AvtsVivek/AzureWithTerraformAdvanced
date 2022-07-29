@@ -20,13 +20,10 @@ crash.log
 *.tfplan
 
 # .pem files
-*.pem
+# *.pem
 
 # .pem files
-*.pub
-
-# .pem files
-*.pub
+# *.pub
 
 ssh-keys/
 

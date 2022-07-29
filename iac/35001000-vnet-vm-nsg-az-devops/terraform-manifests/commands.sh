@@ -4,7 +4,7 @@ cd ./iac/35001000-vnet-vm-nsg-az-devops/terraform-manifests
 
 cd ../..
 
-cd ssh-keys
+cd ssh-keys-az-devops
 
 # Run the following in bash prompt. In pwershell it will not work.
 ssh-keygen \
@@ -17,9 +17,9 @@ ssh-keygen \
 
 Get-ChildItem . 
 
-Get-ChildItem ./ssh-keys
+Get-ChildItem ./ssh-keys-az-devops
 
-cd ssh-keys
+cd ssh-keys-az-devops
 
 Rename-Item ./terraform-azure.pem.pub ./terraform-azure.pub
 
@@ -51,7 +51,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@40.114.14.64
+ssh -i ssh-keys-az-devops/terraform-azure.pem azureuser@40.114.14.64
 
 # Now that you are in the VM, you can run the following commands.
 hostname
