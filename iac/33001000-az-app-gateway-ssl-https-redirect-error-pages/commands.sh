@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/30001000-az-app-gateway-terraform-basic
+cd ./iac/33001000-az-app-gateway-ssl-https-redirect-error-pages
 
 code . -r
 
