@@ -31,6 +31,7 @@ locals {
   request_routing_rule_name_https = "${azurerm_virtual_network.vnet.name}-rqrt-https"
   frontend_port_name_https        = "${azurerm_virtual_network.vnet.name}-feport-https"
   ssl_certificate_name            = "my-cert-1"
+  ssl_certificate_name_keyvault   = "keyvault-my-cert-1"
 }
 
 
@@ -115,7 +116,7 @@ resource "azurerm_application_gateway" "web_ag" {
   }
   # HTTP Routing Rule - HTTP to HTTPS Redirect
   request_routing_rule {
-    priority = 1
+    priority                    = 1
     name                        = local.request_routing_rule_name_http
     rule_type                   = "Basic"
     http_listener_name          = local.listener_name_http
@@ -132,10 +133,21 @@ resource "azurerm_application_gateway" "web_ag" {
 
 
   # SSL Certificate Block
+  /*  ssl_certificate {
+    name = local.ssl_certificate_name
+    password = "kalyan"
+    data = filebase64("${path.module}/ssl-self-signed/httpd.pfx")
+  }*/
+
   ssl_certificate {
-    name     = local.ssl_certificate_name
-    password = "vivek"
-    data     = filebase64("${path.module}/ssl-self-signed/httpd.pfx")
+    name                = local.ssl_certificate_name_keyvault
+    key_vault_secret_id = azurerm_key_vault_certificate.my_cert_1.secret_id
+  }
+
+  identity {
+    # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway
+    type = "UserAssigned" #"SystemAssigned"
+    identity_ids = [azurerm_user_assigned_identity.appag_umid.id]
   }
 
   # HTTPS Listener - Port 443  
@@ -144,8 +156,7 @@ resource "azurerm_application_gateway" "web_ag" {
     frontend_ip_configuration_name = local.frontend_ip_configuration_name
     frontend_port_name             = local.frontend_port_name_https
     protocol                       = "Https"
-    ssl_certificate_name           = local.ssl_certificate_name
-
+    ssl_certificate_name           = local.ssl_certificate_name_keyvault
     custom_error_configuration {
       custom_error_page_url = "${azurerm_storage_account.storage_account.primary_web_endpoint}502.html"
       status_code           = "HttpStatus502"
@@ -161,7 +172,7 @@ resource "azurerm_application_gateway" "web_ag" {
   # HTTPS Routing Rule - Port 443
   request_routing_rule {
     name                       = local.request_routing_rule_name_https
-    priority                    = 2
+    priority                   = 2
     rule_type                  = "Basic"
     http_listener_name         = local.listener_name_https
     backend_address_pool_name  = local.backend_address_pool_name_app1

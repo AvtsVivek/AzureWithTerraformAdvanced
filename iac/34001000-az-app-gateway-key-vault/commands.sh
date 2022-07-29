@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/33001000-az-app-gateway-ssl-https-redirect-error-pages
+cd ./iac/34001000-az-app-gateway-key-vault
 
 code . -r
 
