@@ -135,8 +135,8 @@ resource "azurerm_application_gateway" "web_ag" {
 
   # Path based Routing Rule
   request_routing_rule {
-    name = local.request_routing_rule1_name
-    priority                   = 1 # Need to check
+    name               = local.request_routing_rule1_name
+    priority           = 1 # Need to check
     rule_type          = "PathBasedRouting"
     http_listener_name = local.listener_name
     # backend_address_pool_name  = local.backend_address_pool_name_app1 # Why is this removed? Need to find out.

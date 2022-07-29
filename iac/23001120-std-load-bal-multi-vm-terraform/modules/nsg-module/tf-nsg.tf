@@ -20,7 +20,7 @@ resource "azurerm_network_security_rule" "web_vmnic_nsg_rule_inbound" {
 
 variable "web_vmnic_nsg_name" {
   description = "value of web_vmnic_nsg_name"
-  type = string 
+  type        = string
 }
 
 variable "web_linuxvm_instance_count_var" {

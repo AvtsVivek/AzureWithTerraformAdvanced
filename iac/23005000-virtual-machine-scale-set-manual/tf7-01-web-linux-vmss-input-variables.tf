@@ -2,11 +2,11 @@
 variable "web_vmss_nsg_inbound_ports" {
   description = "Web VMSS NSG Inbound Ports"
 
-  type        = list(string)
+  type = list(string)
 
   # The following can also be used instead of the above. 
   #type        = set(string)
 
-  default     = [22, 80, 443]
+  default = [22, 80, 443]
 }
 
