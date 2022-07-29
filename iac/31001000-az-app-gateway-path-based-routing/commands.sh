@@ -2,7 +2,7 @@
 cd ../..
 
 # cd into the directory.
-cd ./iac/30001000-az-app-gateway-terraform-basic
+cd ./iac/31001000-az-app-gateway-path-based-routing
 
 code . -r
 

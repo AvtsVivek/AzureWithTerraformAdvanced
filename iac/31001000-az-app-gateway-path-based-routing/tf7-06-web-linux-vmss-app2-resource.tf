@@ -1,6 +1,6 @@
 # Locals Block for custom data
 locals {
-app2_webvm_custom_data = <<CUSTOM_DATA
+  app2_webvm_custom_data = <<CUSTOM_DATA
 #!/bin/sh
 #sudo yum update -y
 sudo yum install -y httpd
@@ -21,7 +21,7 @@ CUSTOM_DATA
 
 # Resource: Azure Linux Virtual Machine Scale Set - App2
 resource "azurerm_linux_virtual_machine_scale_set" "app2_web_vmss" {
-  name                = "${local.resource_name_prefix}-app2-web-vmss"
+  name = "${local.resource_name_prefix}-app2-web-vmss"
   #computer_name_prefix = "vmss-app2" # if name argument is not valid one for VMs, we can use this for VM Names
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
@@ -47,7 +47,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "app2_web_vmss" {
   }
 
   upgrade_mode = "Automatic"
-  
+
   network_interface {
     name                      = "app2-web-vmss-nic"
     primary                   = true
@@ -57,10 +57,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "app2_web_vmss" {
       primary   = true
       subnet_id = azurerm_subnet.websubnet.id
       # application_gateway_backend_address_pool_ids = [azurerm_application_gateway.web_ag.backend_address_pool[0].id]
-      application_gateway_backend_address_pool_ids = [tolist(azurerm_application_gateway.web_ag.backend_address_pool).0.id]
+      application_gateway_backend_address_pool_ids = [tolist(azurerm_application_gateway.web_ag.backend_address_pool).1.id]
     }
   }
   #custom_data = filebase64("${path.module}/app-scripts/redhat-app2-script.sh")      
   custom_data = base64encode(local.app2_webvm_custom_data)
-  }
+}
 
