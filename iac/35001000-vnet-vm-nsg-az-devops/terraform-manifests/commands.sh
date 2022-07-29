@@ -27,6 +27,8 @@ cd ..
 
 terraform fmt
 
+terraform providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64
+
 terraform init
 
 terraform validate
@@ -133,3 +135,17 @@ terraform plan -destroy -out main.destroy.tfplan
 terraform show main.destroy.tfplan
 
 terraform apply main.destroy.tfplan
+
+Remove-Item -Recurse -Force .terraform/modules
+
+Remove-Item -Recurse -Force .terraform
+
+Remove-Item terraform.tfstate
+
+Remove-Item terraform.tfstate.backup
+
+Remove-Item main.tfplan
+
+Remove-Item main.destroy.tfplan
+
+Remove-Item .terraform.lock.hcl
