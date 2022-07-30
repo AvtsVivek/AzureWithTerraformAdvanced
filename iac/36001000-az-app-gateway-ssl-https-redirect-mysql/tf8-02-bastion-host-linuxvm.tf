@@ -1,4 +1,3 @@
-/*
 
 # Locals Block for custom data
 locals {
@@ -65,6 +64,3 @@ resource "azurerm_linux_virtual_machine" "bastion_host_linuxvm" {
   }
   custom_data = base64encode(local.bastion_host_custom_data)
 }
-
-
-*/
