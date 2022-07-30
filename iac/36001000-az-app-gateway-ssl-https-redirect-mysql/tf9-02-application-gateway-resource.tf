@@ -84,8 +84,9 @@ resource "azurerm_application_gateway" "web_ag" {
   }
   backend_http_settings {
     name                  = local.http_setting_name_app1
-    # cookie_based_affinity = "Disabled"
+    #cookie_based_affinity = "Disabled"
     cookie_based_affinity = "Enabled"
+    affinity_cookie_name  = "ApplicationGatewayAffinity"
     #path                  = "/app1/"
     port            = 8080
     protocol        = "Http"
@@ -99,10 +100,10 @@ resource "azurerm_application_gateway" "web_ag" {
     timeout             = 30
     unhealthy_threshold = 3
     protocol            = "Http"
-    port                = 80
-    path                = "/app1/status.html"
+    port                = 8080
+    path                = "/login"
     match { # Optional
-      body        = "App1"
+      body        = "Username"
       status_code = ["200"]
     }
   }

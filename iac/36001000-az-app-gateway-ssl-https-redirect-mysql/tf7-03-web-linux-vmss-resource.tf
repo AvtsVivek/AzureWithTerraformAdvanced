@@ -54,7 +54,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "web_vmss" {
 
   os_disk {
     caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"    
+    storage_account_type = "Standard_LRS"
   }
 
   upgrade_mode = "Automatic"
