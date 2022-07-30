@@ -4,6 +4,8 @@ resource "azurerm_subnet" "websubnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.web_subnet_address
+  # Create service endpoint policies to allow traffic to specific azure resources from your virtual network over service endpoints. 
+  service_endpoints = ["Microsoft.Sql"]
 }
 
 # Resource-2: Create Network Security Group (NSG)
@@ -23,7 +25,8 @@ locals {
     # If the key starts with a number, you must use the colon syntax ":" instead of "="
     "100" : "80",
     "110" : "443",
-    "120" : "22"
+    "120" : "22",
+    "130" : "8080"
   }
 }
 
@@ -48,7 +51,7 @@ resource "azurerm_subnet_network_security_group_association" "web_subnet_nsg_ass
   depends_on = [azurerm_network_security_rule.web_nsg_rule_inbound]
   # Every NSG Rule Association will disassociate NSG from Subnet and Associate it, 
   # so we associate it only after NSG is completely created - Azure Provider Bug:
-  # https://github.com/terraform-providers/terraform-provider-azurerm/issues/354  
+  # https://github.com/terraform-providers/terraform-provider-azurerm/issues/354 
   subnet_id                 = azurerm_subnet.websubnet.id
   network_security_group_id = azurerm_network_security_group.web_subnet_nsg.id
 }
