@@ -115,7 +115,7 @@ resource "azurerm_application_gateway" "web_ag" {
   }
   # HTTP Routing Rule - HTTP to HTTPS Redirect
   request_routing_rule {
-    priority = 1
+    priority                    = 1
     name                        = local.request_routing_rule_name_http
     rule_type                   = "Basic"
     http_listener_name          = local.listener_name_http
@@ -161,7 +161,7 @@ resource "azurerm_application_gateway" "web_ag" {
   # HTTPS Routing Rule - Port 443
   request_routing_rule {
     name                       = local.request_routing_rule_name_https
-    priority                    = 2
+    priority                   = 2
     rule_type                  = "Basic"
     http_listener_name         = local.listener_name_https
     backend_address_pool_name  = local.backend_address_pool_name_app1
