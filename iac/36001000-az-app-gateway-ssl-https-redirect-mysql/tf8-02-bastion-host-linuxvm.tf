@@ -4,6 +4,8 @@ locals {
   bastion_host_custom_data = <<CUSTOM_DATA
 #!/bin/sh
 #sudo yum update -y
+sudo yum -y install telnet
+sudo yum -y install mysql
 sudo yum install -y httpd
 sudo systemctl enable httpd
 sudo systemctl start httpd  
