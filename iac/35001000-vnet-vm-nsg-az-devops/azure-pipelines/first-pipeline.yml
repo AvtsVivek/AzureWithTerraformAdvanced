@@ -18,8 +18,10 @@
 #     echo See https://aka.ms/yaml
 #   displayName: 'Run a multi-line script'
 
-trigger: none
-# - main
+# trigger: none
+
+trigger:
+ - main
 
 # Stages
 # Stage-1:
