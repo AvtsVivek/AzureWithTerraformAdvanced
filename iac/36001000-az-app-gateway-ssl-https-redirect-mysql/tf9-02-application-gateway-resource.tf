@@ -83,7 +83,7 @@ resource "azurerm_application_gateway" "web_ag" {
     name = local.backend_address_pool_name_app1
   }
   backend_http_settings {
-    name                  = local.http_setting_name_app1
+    name = local.http_setting_name_app1
     #cookie_based_affinity = "Disabled"
     cookie_based_affinity = "Enabled"
     affinity_cookie_name  = "ApplicationGatewayAffinity"
