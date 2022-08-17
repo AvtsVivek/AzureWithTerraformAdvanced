@@ -56,6 +56,7 @@ resource "azurerm_monitor_autoscale_setting" "web_vmss_autoscale" {
         cooldown  = "PT5M"
       }
       metric_trigger {
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftavsprivateclouds
         metric_name        = "Percentage CPU"
         metric_resource_id = azurerm_linux_virtual_machine_scale_set.web_vmss.id
         metric_namespace   = "microsoft.compute/virtualmachinescalesets"
@@ -77,6 +78,7 @@ resource "azurerm_monitor_autoscale_setting" "web_vmss_autoscale" {
         cooldown  = "PT5M"
       }
       metric_trigger {
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftavsprivateclouds
         metric_name        = "Percentage CPU"
         metric_resource_id = azurerm_linux_virtual_machine_scale_set.web_vmss.id
         metric_namespace   = "microsoft.compute/virtualmachinescalesets"
@@ -100,6 +102,7 @@ resource "azurerm_monitor_autoscale_setting" "web_vmss_autoscale" {
         cooldown  = "PT5M"
       }
       metric_trigger {
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftcomputecloudservices
         metric_name        = "Available Memory Bytes"
         metric_resource_id = azurerm_linux_virtual_machine_scale_set.web_vmss.id
         metric_namespace   = "microsoft.compute/virtualmachinescalesets"
@@ -121,6 +124,7 @@ resource "azurerm_monitor_autoscale_setting" "web_vmss_autoscale" {
         cooldown  = "PT5M"
       }
       metric_trigger {
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftcomputecloudservices
         metric_name        = "Available Memory Bytes"
         metric_resource_id = azurerm_linux_virtual_machine_scale_set.web_vmss.id
         metric_namespace   = "microsoft.compute/virtualmachinescalesets"
@@ -145,6 +149,8 @@ resource "azurerm_monitor_autoscale_setting" "web_vmss_autoscale" {
         cooldown  = "PT5M"
       }
       metric_trigger {
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftnetworkloadbalancers
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftnetworkpublicipaddresses
         metric_name        = "SYNCount"
         metric_resource_id = azurerm_lb.web_lb.id
         metric_namespace   = "Microsoft.Network/loadBalancers"
@@ -165,6 +171,8 @@ resource "azurerm_monitor_autoscale_setting" "web_vmss_autoscale" {
         cooldown  = "PT5M"
       }
       metric_trigger {
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftnetworkloadbalancers
+        # https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported#microsoftnetworkpublicipaddresses
         metric_name        = "SYNCount"
         metric_resource_id = azurerm_lb.web_lb.id
         metric_namespace   = "Microsoft.Network/loadBalancers"
