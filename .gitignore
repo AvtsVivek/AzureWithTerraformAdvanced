@@ -19,16 +19,8 @@ crash.log
 # .tfplan files
 *.tfplan
 
-# .pem files
-# *.pem
-
-# .pem files
-# *.pub
 
 ssh-keys/
-
-terraform-azure.pub
-terraform-azure.pem
 
 # .hcl files from Terraform v0.14 and newer
 *.hcl
@@ -83,3 +75,8 @@ httpd.crt
 # example: *tfplan*
 
 
+# .pem files
+*.pem
+
+# .pem files
+*.pub
