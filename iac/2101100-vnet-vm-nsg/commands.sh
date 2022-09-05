@@ -4,9 +4,12 @@ cd ./iac/2101100-vnet-vm-nsg
 
 cd ../..
 
+mkdir ssh-keys
+
 cd ssh-keys
 
-# Run the following in bash prompt. In pwershell it will not work.
+# Run the following in bash prompt. In powershell it will not work.
+# If prompted for a password, just press enter to give an empty password.
 ssh-keygen \
     -m PEM \
     -t rsa \
