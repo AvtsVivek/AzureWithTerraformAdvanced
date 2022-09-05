@@ -45,14 +45,14 @@ terraform apply main.tfplan
 # Also look at subnets and corresponding security groups.
 
 # Connect to the VM. Ensure the vm is running.
-# Note the IP address.
+# Note the IP address, either from the output of the apply command or go to the porta.azure.com
 # Run the following with the ip address.
-# Run the following in bash prompt.
+# Run the following in bash prompt, NOT from POWERSHELL
 # If you get the following permission denined, 
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@40.114.14.64
+ssh -i ssh-keys/terraform-azure.pem azureuser@20.232.127.122
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -86,7 +86,7 @@ ls -lrta
 
 Now browse the vm. 
 
-# use ip address or dns name.
+# use ip address or dns name. You can get it from the porta. 
 
 http://app1-vm-jshbwy.eastus.cloudapp.azure.com/
 
@@ -98,11 +98,14 @@ http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/status.html
 
 http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/hostname.html
 
+# If you get Permission denied, from the below command, then run the 
+# sudo su - 
+# first and then run the below command.
 cd /var/log/httpd/
 
 tail -100f access_log
 
-# Run any of the following commands and then see the logs.
+# Browse any of the following and then see the logs. First ensure correct dns name in the following commands.
 
 http://app1-vm-jshbwy.eastus.cloudapp.azure.com/
 
