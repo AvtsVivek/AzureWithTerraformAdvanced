@@ -15,3 +15,6 @@ network_interface_ids = [azurerm_network_interface.web_linuxvm_nic.id]
 
 ![The Diagram](./Images/topology.svg)
 
+![Download Topology diagram](./Images/DownloadTopology.jpg)
+
+![Download Topology diagram](./Images/DownloadTopology2.jpg)

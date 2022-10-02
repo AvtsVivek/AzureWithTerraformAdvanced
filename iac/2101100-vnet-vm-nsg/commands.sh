@@ -36,7 +36,7 @@ terraform validate
 
 terraform plan -out main.tfplan
 
-terraform show main.tfplan
+# terraform show main.tfplan
 
 terraform apply main.tfplan
 
@@ -52,7 +52,7 @@ terraform apply main.tfplan
 # azureuser@40.114.14.64: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
 # then you are not in the correct directory.
 
-ssh -i ssh-keys/terraform-azure.pem azureuser@20.232.127.122
+ssh -i ssh-keys/terraform-azure.pem azureuser@4.236.141.33
 
 # Now that you are in the VM, you can run the following commands.
 hostname
@@ -88,15 +88,15 @@ Now browse the vm.
 
 # use ip address or dns name. You can get it from the porta. 
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/metadata.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/metadata.html
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/index.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/index.html
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/status.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/status.html
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/hostname.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/hostname.html
 
 # If you get Permission denied, from the below command, then run the 
 # sudo su - 
@@ -107,15 +107,15 @@ tail -100f access_log
 
 # Browse any of the following and then see the logs. First ensure correct dns name in the following commands.
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/metadata.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/metadata.html
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/index.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/index.html
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/status.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/status.html
 
-http://app1-vm-jshbwy.eastus.cloudapp.azure.com/app1/hostname.html
+http://app1-vm-dsdumc.eastus.cloudapp.azure.com/app1/hostname.html
 
 exit
 
